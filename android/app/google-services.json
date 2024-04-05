@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "912078105134",
+    "project_id": "giai-phau-3d",
+    "storage_bucket": "giai-phau-3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912078105134:android:cb6af47d1ac74141e78dbf",
+        "android_client_info": {
+          "package_name": "com.example.anatomy_ar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_86bCrx0HlrKaZajMUBVuYdjyqR3xgBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
