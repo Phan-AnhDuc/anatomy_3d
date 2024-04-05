@@ -20,4 +20,8 @@ class ArImages {
 
   static const String ic_co_the_ban_chua_biet = 'assets/svg/co_the_ban_chua_biet.svg';
   static const String ic_co_the_muon_ban_biet = 'assets/svg/co_the_muon_ban_biet.svg';
+
+  static const String intro_1 = 'assets/image/intro_1.png';
+  static const String intro_2 = 'assets/image/intro_2.png';
+  static const String intro_3 = 'assets/image/intro_3.png';
 }

@@ -1,4 +1,5 @@
 import 'package:anatomy_ar/home/home_tab.dart';
+import 'package:anatomy_ar/ui/intro/intro_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.transparent),
         useMaterial3: true,
       ),
-      home: const HomeTabs(),
+      home: const IntroScreen(),
     );
   }
 }

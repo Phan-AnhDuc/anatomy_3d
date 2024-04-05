@@ -4,7 +4,7 @@ import 'package:anatomy_ar/ui/list_ar_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'home_page.dart';
+import '../ui/home_page.dart';
 
 class HomeTabs extends StatefulWidget {
   const HomeTabs({super.key});
