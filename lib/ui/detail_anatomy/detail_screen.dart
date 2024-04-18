@@ -3,6 +3,7 @@ import 'package:anatomy_ar/const/app_scafford.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
+import 'package:anatomy_ar/ui/detail_anatomy/detail_more.dart';
 import 'package:anatomy_ar/ui/detail_item/item_list.dart';
 import 'package:flutter/material.dart';
 import 'package:native_ar_viewer/native_ar_viewer.dart';
@@ -123,8 +124,11 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
               ],
             ),
-            child: Center(
-              child: CachedImage(imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
+            child: Hero(
+              tag: 'image',
+              child: Center(
+                child: CachedImage(imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
+              ),
             ),
           ),
         ),
@@ -167,19 +171,27 @@ class _DetailScreenState extends State<DetailScreen> {
                 'About heart',
                 style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
               ),
-              Row(
-                children: [
-                  Text(
-                    'More',
-                    style: OneTheme.of(context).title2.copyWith(fontSize: 14),
-                  ),
-                  const SizedBox(width: 10),
-                  const Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: OneColors.grey,
-                    size: 14,
-                  )
-                ],
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    // do something
+                    return DetailMoreScreen(arguments: widget.arguments);
+                  }));
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      'More',
+                      style: OneTheme.of(context).title2.copyWith(fontSize: 14),
+                    ),
+                    const SizedBox(width: 10),
+                    const Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      color: OneColors.grey,
+                      size: 14,
+                    )
+                  ],
+                ),
               )
             ],
           ),

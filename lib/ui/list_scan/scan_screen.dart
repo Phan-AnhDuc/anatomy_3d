@@ -3,7 +3,7 @@ import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
 import 'package:anatomy_ar/firebase/fire_base.dart';
-import 'package:anatomy_ar/ui/item_scan/item_scan.dart';
+import 'package:anatomy_ar/ui/list_scan/item_scan.dart';
 import 'package:flutter/material.dart';
 
 class ScanScreen extends StatefulWidget {

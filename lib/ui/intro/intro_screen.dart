@@ -5,7 +5,6 @@ import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/home/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 class IntroScreen extends StatefulWidget {

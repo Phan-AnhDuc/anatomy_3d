@@ -245,7 +245,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Cơ thể muốn bạn biết',
+                        'Cẩm nang sức khỏe',
                         style: OneTheme.of(context).title2.copyWith(fontSize: 18),
                       ),
                       const SizedBox(height: 4),
@@ -258,9 +258,42 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
-                  height: 80,
+                  width: 80,
                   child: Image.asset(
                     ArImages.co_the_muon_ban_biet,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 14),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: OneColors.grey.withOpacity(0.4)),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Từ điển giải phẫu',
+                        style: OneTheme.of(context).title2.copyWith(fontSize: 18),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Những thuật ngữ thường gặp trong giải phẫu',
+                        style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 80,
+                  child: Image.asset(
+                    ArImages.co_the_ban_chua_biet,
                   ),
                 ),
               ],

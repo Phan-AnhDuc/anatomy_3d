@@ -24,4 +24,6 @@ class ArImages {
   static const String intro_1 = 'assets/image/intro_1.png';
   static const String intro_2 = 'assets/image/intro_2.png';
   static const String intro_3 = 'assets/image/intro_3.png';
+
+  static const String evulotion = 'assets/image/evulotion.png';
 }

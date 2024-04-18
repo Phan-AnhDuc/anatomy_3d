@@ -1,6 +1,6 @@
 import 'package:anatomy_ar/const/ar_image.dart';
-import 'package:anatomy_ar/ui/evolution_screen.dart';
-import 'package:anatomy_ar/ui/scan_screen.dart';
+import 'package:anatomy_ar/ui/evolution/evolution_screen.dart';
+import 'package:anatomy_ar/ui/list_scan/scan_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 

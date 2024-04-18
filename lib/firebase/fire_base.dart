@@ -64,3 +64,16 @@ Future<List<Map<String, dynamic>>> layDanhSachScanAr() async {
   }
   return dataList;
 }
+
+Future<List<Map<String, dynamic>>> layDanhSachTienHoa() async {
+  CollectionReference modeldata = FirebaseFirestore.instance.collection("evulotion");
+  List<DocumentSnapshot> items = [];
+  List<Map<String, dynamic>> dataList = [];
+
+  QuerySnapshot snapshot = await modeldata.get();
+  for (var element in snapshot.docs) {
+    var mapData = element.data() as Map<String, dynamic>;
+    dataList.add(mapData);
+  }
+  return dataList;
+}
