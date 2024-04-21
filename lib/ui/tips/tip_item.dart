@@ -1,0 +1,86 @@
+import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
+import 'package:anatomy_ar/const/ar_color.dart';
+import 'package:flutter/material.dart';
+
+import '../../const/ar_theme.dart';
+import 'detail_screen.dart';
+
+class Item extends StatelessWidget {
+  const Item({super.key, this.arguments});
+
+  final arguments;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return DetailScreen(arguments: arguments);
+        }));
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: OneColors.white,
+          boxShadow: [
+            BoxShadow(
+              color: OneColors.shadow.withOpacity(0.2),
+              blurRadius: 20.0,
+            ),
+          ],
+        ),
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  clipBehavior: Clip.antiAlias,
+                  child: CachedImage(
+                    imageUrl: arguments['imageUrl'],
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15, bottom: 8, top: 16),
+                  child: Text(
+                    arguments['title'],
+                    style: OneTheme.of(context).title1.copyWith(fontSize: 18),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                  child: Text(
+                    arguments['descreption'],
+                    style: OneTheme.of(context).title2.copyWith(fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              right: 15,
+              bottom: 10,
+              child: Row(
+                children: [
+                  Text(
+                    'More',
+                    style: OneTheme.of(context).title2.copyWith(
+                          fontSize: 14,
+                          color: OneColors.grey,
+                        ),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    color: OneColors.grey,
+                    size: 12,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

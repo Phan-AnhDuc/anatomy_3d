@@ -77,3 +77,29 @@ Future<List<Map<String, dynamic>>> layDanhSachTienHoa() async {
   }
   return dataList;
 }
+
+Future<List<Map<String, dynamic>>> layDanhSachTips() async {
+  CollectionReference modeldata = FirebaseFirestore.instance.collection("tips");
+  List<DocumentSnapshot> items = [];
+  List<Map<String, dynamic>> dataList = [];
+
+  QuerySnapshot snapshot = await modeldata.get();
+  for (var element in snapshot.docs) {
+    var mapData = element.data() as Map<String, dynamic>;
+    dataList.add(mapData);
+  }
+  return dataList;
+}
+
+Future<List<Map<String, dynamic>>> layDanhSachHandbook() async {
+  CollectionReference modeldata = FirebaseFirestore.instance.collection("handbook");
+  List<DocumentSnapshot> items = [];
+  List<Map<String, dynamic>> dataList = [];
+
+  QuerySnapshot snapshot = await modeldata.get();
+  for (var element in snapshot.docs) {
+    var mapData = element.data() as Map<String, dynamic>;
+    dataList.add(mapData);
+  }
+  return dataList;
+}

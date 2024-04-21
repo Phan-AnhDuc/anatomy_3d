@@ -7,6 +7,8 @@ import 'package:anatomy_ar/ui/detail_item/anatomy_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'tips/tips_screen.dart';
+
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
 
@@ -202,68 +204,82 @@ class _HomePageScreenState extends State<HomePageScreen> {
             style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
           ),
           const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: OneColors.borderRed.withOpacity(0.1)),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Có thể bạn chưa biết',
-                        style: OneTheme.of(context).title2.copyWith(fontSize: 18),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Những điều thú vị màn bạn nên biết',
-                        style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
-                      ),
-                    ],
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const TipsScreen(id: 1);
+              }));
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: OneColors.borderRed.withOpacity(0.1)),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Có thể bạn chưa biết',
+                          style: OneTheme.of(context).title2.copyWith(fontSize: 18),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Những điều thú vị màn bạn nên biết',
+                          style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 80,
-                  child: Image.asset(
-                    ArImages.co_the_ban_chua_biet,
+                  SizedBox(
+                    height: 80,
+                    child: Image.asset(
+                      ArImages.co_the_ban_chua_biet,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 14),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: OneColors.grey.withOpacity(0.1)),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Cẩm nang sức khỏe',
-                        style: OneTheme.of(context).title2.copyWith(fontSize: 18),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Những điều thú vị màn bạn nên biết',
-                        style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
-                      ),
-                    ],
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const TipsScreen(id: 2);
+              }));
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: OneColors.grey.withOpacity(0.1)),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Cẩm nang sức khỏe',
+                          style: OneTheme.of(context).title2.copyWith(fontSize: 18),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Những điều thú vị màn bạn nên biết',
+                          style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: 80,
-                  child: Image.asset(
-                    ArImages.co_the_muon_ban_biet,
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: 80,
+                    child: Image.asset(
+                      ArImages.co_the_muon_ban_biet,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 14),
