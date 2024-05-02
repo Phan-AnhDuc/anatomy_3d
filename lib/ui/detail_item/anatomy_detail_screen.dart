@@ -42,6 +42,8 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
                   _buildBodyFirstId('2'),
                   _buildTitle(_titleThird()),
                   _buildBodyFirstId('3'),
+                  _buildTitle(_titleFour()),
+                  _buildBodyFirstId('4'),
                 ]),
               ),
             ],
@@ -188,6 +190,19 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
         return 'Hệ thống giác quan';
       case 2:
         return 'Hệ thống hô hấp';
+      case 3:
+      case 4:
+        return '';
+    }
+    return '';
+  }
+
+  String _titleFour() {
+    switch (widget.id) {
+      case 1:
+        return '';
+      case 2:
+        return 'Hệ thông tiêu hóa';
       case 3:
       case 4:
         return '';
