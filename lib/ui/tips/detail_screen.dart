@@ -1,3 +1,4 @@
+import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
 import 'package:anatomy_ar/const/app_scafford.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
@@ -26,6 +27,7 @@ class _DetailScreenState extends State<DetailScreen> {
           Scrollbar(
             child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
               _buildHeader(),
+              SliverToBoxAdapter(child: _buildImage()),
               SliverToBoxAdapter(child: _buildBody()),
             ]),
           ),
@@ -35,7 +37,7 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Widget _buildHeader() {
-    final double headerHeight = 80 + MediaQuery.of(context).padding.top;
+    final double headerHeight = 60 + MediaQuery.of(context).padding.top;
     return SliverPersistentHeader(
       pinned: true,
       delegate: SliverAppBarDelegate(
@@ -76,6 +78,16 @@ class _DetailScreenState extends State<DetailScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildImage() {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: CachedImage(
+        imageUrl: widget.arguments['imageUrl'],
+        fit: BoxFit.contain,
       ),
     );
   }

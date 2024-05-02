@@ -48,7 +48,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
   }
 
   Widget _buildHeader() {
-    final double headerHeight = 260 + MediaQuery.of(context).padding.top;
+    final double headerHeight = 220 + MediaQuery.of(context).padding.top;
     return SliverPersistentHeader(
       pinned: true,
       delegate: SliverAppBarDelegate(

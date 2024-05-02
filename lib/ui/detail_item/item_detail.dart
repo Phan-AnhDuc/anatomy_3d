@@ -39,7 +39,10 @@ class ItemDetailAnotomy extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 child: SizedBox(
                   height: 90,
-                  child: CachedImage(imageUrl: arguments['imageUrl'] ?? '', fit: BoxFit.contain),
+                  child: Hero(
+                    tag: 'image',
+                    child: CachedImage(imageUrl: arguments['imageUrl'] ?? '', fit: BoxFit.contain),
+                  ),
                 )),
             const SizedBox(height: 15),
             Text(
