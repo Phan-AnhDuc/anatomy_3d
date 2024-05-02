@@ -26,6 +26,8 @@ class OneColors {
   static const Color textFlag1 = Color(0xFF43a047);
   static const Color textFlag2 = Color(0xFF2b58a7);
   static const Color textGuide = Color(0xFFAFBCCB);
+  static const Color xam = Color.fromARGB(255, 240, 242, 252);
+  static const Color boxshadow = Color.fromARGB(255, 162, 169, 255);
 
   //Brand Colors
   static const Color brandVNP = Color(0xFF265AD2);
@@ -41,11 +43,15 @@ class OneColors {
     end: Alignment(0.05, 1.5),
   );
   static const LinearGradient gradient3 = LinearGradient(
-    colors: [Color.fromARGB(128, 255, 255, 255), Color.fromARGB(128, 255, 255, 255)],
+    colors: [
+      Color.fromARGB(128, 255, 255, 255),
+      Color.fromARGB(128, 255, 255, 255)
+    ],
     begin: Alignment(0, -1.4),
     end: Alignment(0.05, 1.5),
   );
-  static Shader gradientShader = gradient.createShader(const Rect.fromLTRB(0, 0, 24, 24));
+  static Shader gradientShader =
+      gradient.createShader(const Rect.fromLTRB(0, 0, 24, 24));
   //Basic Colors
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);

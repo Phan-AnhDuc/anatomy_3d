@@ -5,7 +5,9 @@ import 'package:anatomy_ar/ui/detail_anatomy/detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class ItemDetailAnotomy extends StatelessWidget {
-  const ItemDetailAnotomy({Key? key, required this.arguments, required this.argumentsList}) : super(key: key);
+  const ItemDetailAnotomy(
+      {Key? key, required this.arguments, required this.argumentsList})
+      : super(key: key);
 
   final arguments;
   final argumentsList;
@@ -15,7 +17,8 @@ class ItemDetailAnotomy extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return DetailScreen(arguments: arguments, argumentsList: argumentsList);
+          return DetailScreen(
+              arguments: arguments, argumentsList: argumentsList);
         }));
       },
       child: Container(
@@ -23,10 +26,10 @@ class ItemDetailAnotomy extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: OneColors.backItem,
-          boxShadow: const [
+          color: OneColors.xam,
+          boxShadow: [
             BoxShadow(
-              color: OneColors.brandVNPT,
+              color: OneColors.boxshadow.withOpacity(0.3),
               offset: Offset(0, 5),
               blurRadius: 8,
               spreadRadius: 0,
@@ -41,7 +44,9 @@ class ItemDetailAnotomy extends StatelessWidget {
                   height: 90,
                   child: Hero(
                     tag: 'image',
-                    child: CachedImage(imageUrl: arguments['imageUrl'] ?? '', fit: BoxFit.contain),
+                    child: CachedImage(
+                        imageUrl: arguments['imageUrl'] ?? '',
+                        fit: BoxFit.contain),
                   ),
                 )),
             const SizedBox(height: 15),
@@ -49,7 +54,7 @@ class ItemDetailAnotomy extends StatelessWidget {
               '${arguments['name']}',
               style: OneTheme.of(context).title2.copyWith(
                     fontSize: 18,
-                    color: OneColors.white,
+                    color: OneColors.black,
                   ),
             )
           ],
