@@ -4,6 +4,7 @@ import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/const/ramdom_color.dart';
+import 'package:anatomy_ar/ui/list_scan/url.dart';
 import 'package:flutter/material.dart';
 
 class ItemScanAr extends StatefulWidget {
@@ -25,7 +26,12 @@ class _ItemScanArState extends State<ItemScanAr> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            // do something
+            return const Image3D();
+          }));
+        },
         child: Container(
           decoration: BoxDecoration(
             color: ColorRamdom.animalColor[indexRandom],

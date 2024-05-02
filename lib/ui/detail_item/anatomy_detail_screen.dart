@@ -34,7 +34,6 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
           body: Stack(
             children: [
               Scrollbar(
-<<<<<<< Updated upstream
                 child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
                   _buildHeader(),
                   _buildTitle('Hệ thống xương'),
@@ -46,21 +45,6 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
                   _buildTitle(_titleFour()),
                   _buildBodyFirstId('4'),
                 ]),
-=======
-                child: CustomScrollView(
-                    controller: _scrollController,
-                    physics: const BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
-                    slivers: <Widget>[
-                      _buildHeader(),
-                      _buildTitle('Hệ thống xương'),
-                      _buildBodyFirstId('1'),
-                      _buildTitle(_titleSecond()),
-                      _buildBodyFirstId('2'),
-                      _buildTitle(_titleThird()),
-                      _buildBodyFirstId('3'),
-                    ]),
->>>>>>> Stashed changes
               ),
             ],
           ),
@@ -92,9 +76,7 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
               ),
               Text(
                 _title(),
-                style: OneTheme.of(context)
-                    .title2
-                    .copyWith(fontSize: 18, color: OneColors.brandVNPT),
+                style: OneTheme.of(context).title2.copyWith(fontSize: 18, color: OneColors.brandVNPT),
               ),
             ],
           ),
@@ -115,8 +97,7 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
   }
 
   SliverToBoxAdapter _buildBodyFirstId(String? id) {
-    final List<Map<String, dynamic>> filteredItems =
-        _dataList.where((item) => item['id'] == id).toList();
+    final List<Map<String, dynamic>> filteredItems = _dataList.where((item) => item['id'] == id).toList();
     return SliverToBoxAdapter(
       child: GridView.count(
         padding: const EdgeInsets.all(10),
@@ -142,9 +123,7 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
         margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
         child: Text(
           title ?? '',
-          style: OneTheme.of(context)
-              .title2
-              .copyWith(fontSize: 14, color: OneColors.brandVNPT),
+          style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.brandVNPT),
         ),
       ),
     );
