@@ -45,10 +45,10 @@ dependencies:
   cached_network_image: ^3.2.3
   url_launcher: ^6.1.10
   native_ar_viewer: ^0.0.2
-  webview_flutter: ^2.8.0
   permission_handler: ^10.2.0
   flutter_inappwebview: ^5.7.2+3
   get: ^4.6.5
+  flutter_3d_controller: ^1.2.1
 
 dev_dependencies:
   flutter_test:

@@ -4,11 +4,15 @@ import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/const/ramdom_color.dart';
-import 'package:anatomy_ar/ui/list_scan/url.dart';
+import 'package:anatomy_ar/ui/list_scan/show_3d_image.dart';
 import 'package:flutter/material.dart';
 
 class ItemScanAr extends StatefulWidget {
-  const ItemScanAr({super.key, required this.title, required this.descreption, required this.imageUrl});
+  const ItemScanAr(
+      {super.key,
+      required this.title,
+      required this.descreption,
+      required this.imageUrl});
 
   final String title;
   final String descreption;
@@ -29,7 +33,7 @@ class _ItemScanArState extends State<ItemScanAr> {
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             // do something
-            return const Image3D();
+            return const ShowImage3DScreen();
           }));
         },
         child: Container(
@@ -37,7 +41,8 @@ class _ItemScanArState extends State<ItemScanAr> {
             color: ColorRamdom.animalColor[indexRandom],
             borderRadius: BorderRadius.circular(5),
           ),
-          padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10, right: 15),
+          padding:
+              const EdgeInsets.only(left: 30, top: 10, bottom: 10, right: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -51,7 +56,9 @@ class _ItemScanArState extends State<ItemScanAr> {
                   const SizedBox(height: 10),
                   Text(
                     widget.descreption,
-                    style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
+                    style: OneTheme.of(context)
+                        .title2
+                        .copyWith(fontSize: 14, color: OneColors.grey),
                   ),
                 ],
               ),
