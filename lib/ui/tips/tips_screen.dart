@@ -1,6 +1,7 @@
 import 'package:anatomy_ar/const/app_scafford.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
+import 'package:anatomy_ar/const/loading.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
 import 'package:anatomy_ar/firebase/fire_base.dart';
 import 'package:flutter/material.dart';
@@ -24,16 +25,26 @@ class _TipsScreenState extends State<TipsScreen> {
   @override
   void initState() {
     super.initState();
-    layDanhSachTips().then((data) {
-      setState(() {
-        _dataListTips = data;
-      });
-    });
-
-    layDanhSachHandbook().then((data) {
-      setState(() {
-        _dataListHandbook = data;
-      });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      try {
+        Loading.show();
+        layDanhSachTips().then((data) {
+          setState(() {
+            _dataListTips = data;
+            if (_dataListTips.isNotEmpty) {
+              Loading.dismiss();
+            }
+          });
+        });
+        layDanhSachHandbook().then((data) {
+          setState(() {
+            _dataListHandbook = data;
+            if (_dataListHandbook.isNotEmpty) {
+              Loading.dismiss();
+            }
+          });
+        });
+      } finally {}
     });
   }
 
@@ -46,10 +57,14 @@ class _TipsScreenState extends State<TipsScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
-              _buildHeader(),
-              SliverToBoxAdapter(child: _buildBodyList()),
-            ]),
+            child: CustomScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: <Widget>[
+                  _buildHeader(),
+                  SliverToBoxAdapter(child: _buildBodyList()),
+                ]),
           ),
         ],
       ),
@@ -98,12 +113,16 @@ class _TipsScreenState extends State<TipsScreen> {
               if (widget.id == 1) ...[
                 Text(
                   'Có thể bạn chưa biết',
-                  style: OneTheme.of(context).title1.copyWith(fontSize: 20, color: OneColors.white),
+                  style: OneTheme.of(context)
+                      .title1
+                      .copyWith(fontSize: 20, color: OneColors.white),
                 )
               ] else if (widget.id == 2) ...[
                 Text(
                   'Cẩm nang sức khỏe',
-                  style: OneTheme.of(context).title1.copyWith(fontSize: 20, color: OneColors.white),
+                  style: OneTheme.of(context)
+                      .title1
+                      .copyWith(fontSize: 20, color: OneColors.white),
                 )
               ]
             ],
@@ -119,7 +138,8 @@ class _TipsScreenState extends State<TipsScreen> {
         ListView.builder(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
-          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
+          padding:
+              const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
           itemCount: _dataListTips.length,
           itemBuilder: (context, index) {
             return Item(arguments: data(index));

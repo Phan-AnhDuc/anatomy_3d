@@ -25,10 +25,14 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
-              _buildHeader(),
-              SliverToBoxAdapter(child: _buildBody()),
-            ]),
+            child: CustomScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: <Widget>[
+                  _buildHeader(),
+                  SliverToBoxAdapter(child: _buildBody()),
+                ]),
           ),
         ],
       ),
@@ -87,11 +91,9 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
               borderRadius: BorderRadius.circular(15),
               color: OneColors.grey.withOpacity(0.3),
             ),
-            child: Hero(
-              tag: 'image',
-              child: Center(
-                child: CachedImage(imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
-              ),
+            child: Center(
+              child: CachedImage(
+                  imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
             ),
           ),
           const SizedBox(height: 10),
@@ -103,7 +105,9 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
           Text(
             '${widget.arguments['descreption']}',
             textAlign: TextAlign.justify,
-            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
+            style: OneTheme.of(context)
+                .title2
+                .copyWith(fontSize: 14, color: OneColors.grey),
           )
         ],
       ),

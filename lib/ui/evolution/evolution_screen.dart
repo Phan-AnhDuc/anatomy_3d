@@ -2,6 +2,7 @@ import 'package:anatomy_ar/const/app_scafford.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_image.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
+import 'package:anatomy_ar/const/loading.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
 import 'package:anatomy_ar/firebase/fire_base.dart';
 import 'package:anatomy_ar/ui/evolution/item.dart';
@@ -21,10 +22,18 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
   @override
   void initState() {
     super.initState();
-    layDanhSachTienHoa().then((data) {
-      setState(() {
-        _dataList = data;
-      });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      try {
+        Loading.show();
+        layDanhSachTienHoa().then((data) {
+          setState(() {
+            _dataList = data;
+            if (_dataList.isNotEmpty) {
+              Loading.dismiss();
+            }
+          });
+        });
+      } finally {}
     });
   }
 
@@ -37,10 +46,14 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
-              _buildHeader(),
-              SliverToBoxAdapter(child: _buildListEvolution()),
-            ]),
+            child: CustomScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: <Widget>[
+                  _buildHeader(),
+                  SliverToBoxAdapter(child: _buildListEvolution()),
+                ]),
           ),
         ],
       ),
@@ -48,7 +61,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
   }
 
   Widget _buildHeader() {
-    final double headerHeight = 220 + MediaQuery.of(context).padding.top;
+    final double headerHeight = 240 + MediaQuery.of(context).padding.top;
     return SliverPersistentHeader(
       pinned: true,
       delegate: SliverAppBarDelegate(
@@ -72,7 +85,9 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
         children: [
           Text(
             'Lịch sử giải phẫu',
-            style: OneTheme.of(context).title1.copyWith(fontSize: 18, color: OneColors.white),
+            style: OneTheme.of(context)
+                .title1
+                .copyWith(fontSize: 18, color: OneColors.white),
           ),
           const SizedBox(height: 20),
           SizedBox(
@@ -93,7 +108,8 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
         ListView.builder(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
-          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
+          padding:
+              const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
           itemCount: _dataList.length,
           itemBuilder: (context, index) {
             return ItemEvolution(

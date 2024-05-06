@@ -1,6 +1,7 @@
 import 'package:anatomy_ar/const/app_scafford.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
+import 'package:anatomy_ar/const/loading.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
 import 'package:anatomy_ar/firebase/fire_base.dart';
 import 'package:anatomy_ar/ui/detail_item/item_detail.dart';
@@ -21,7 +22,9 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _layDanhSachBoPhan();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      _layDanhSachBoPhan();
+    });
   }
 
   @override
@@ -34,17 +37,21 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
           body: Stack(
             children: [
               Scrollbar(
-                child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
-                  _buildHeader(),
-                  _buildTitle('Hệ thống xương'),
-                  _buildBodyFirstId('1'),
-                  _buildTitle(_titleSecond()),
-                  _buildBodyFirstId('2'),
-                  _buildTitle(_titleThird()),
-                  _buildBodyFirstId('3'),
-                  _buildTitle(_titleFour()),
-                  _buildBodyFirstId('4'),
-                ]),
+                child: CustomScrollView(
+                    controller: _scrollController,
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    slivers: <Widget>[
+                      _buildHeader(),
+                      _buildTitle('Hệ thống xương'),
+                      _buildBodyFirstId('1'),
+                      _buildTitle(_titleSecond()),
+                      _buildBodyFirstId('2'),
+                      _buildTitle(_titleThird()),
+                      _buildBodyFirstId('3'),
+                      _buildTitle(_titleFour()),
+                      _buildBodyFirstId('4'),
+                    ]),
               ),
             ],
           ),
@@ -76,7 +83,9 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
               ),
               Text(
                 _title(),
-                style: OneTheme.of(context).title2.copyWith(fontSize: 18, color: OneColors.brandVNPT),
+                style: OneTheme.of(context)
+                    .title2
+                    .copyWith(fontSize: 18, color: OneColors.brandVNPT),
               ),
             ],
           ),
@@ -97,7 +106,8 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
   }
 
   SliverToBoxAdapter _buildBodyFirstId(String? id) {
-    final List<Map<String, dynamic>> filteredItems = _dataList.where((item) => item['id'] == id).toList();
+    final List<Map<String, dynamic>> filteredItems =
+        _dataList.where((item) => item['id'] == id).toList();
     return SliverToBoxAdapter(
       child: GridView.count(
         padding: const EdgeInsets.all(10),
@@ -123,7 +133,9 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
         margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
         child: Text(
           title ?? '',
-          style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.brandVNPT),
+          style: OneTheme.of(context)
+              .title2
+              .copyWith(fontSize: 14, color: OneColors.brandVNPT),
         ),
       ),
     );
@@ -146,29 +158,54 @@ class _AnotomyDetailScreenState extends State<AnotomyDetailScreen> {
   void _layDanhSachBoPhan() {
     switch (widget.id) {
       case 1:
-        layDanhSachDau().then((data) {
-          setState(() {
-            _dataList = data;
+        try {
+          Loading.show();
+          layDanhSachDau().then((data) {
+            setState(() {
+              _dataList = data;
+              if (_dataList.isNotEmpty) {
+                Loading.dismiss();
+              }
+            });
           });
-        });
+        } finally {}
+
       case 2:
-        layDanhSachThan().then((data) {
-          setState(() {
-            _dataList = data;
+        try {
+          Loading.show();
+          layDanhSachThan().then((data) {
+            setState(() {
+              _dataList = data;
+              if (_dataList.isNotEmpty) {
+                Loading.dismiss();
+              }
+            });
           });
-        });
+        } finally {}
       case 3:
-        layDanhSachChiTren().then((data) {
-          setState(() {
-            _dataList = data;
+        try {
+          Loading.show();
+          layDanhSachChiTren().then((data) {
+            setState(() {
+              _dataList = data;
+              if (_dataList.isNotEmpty) {
+                Loading.dismiss();
+              }
+            });
           });
-        });
+        } finally {}
       case 4:
-        layDanhSachChiDuoi().then((data) {
-          setState(() {
-            _dataList = data;
+        try {
+          Loading.show();
+          layDanhSachChiDuoi().then((data) {
+            setState(() {
+              _dataList = data;
+              if (_dataList.isNotEmpty) {
+                Loading.dismiss();
+              }
+            });
           });
-        });
+        } finally {}
     }
   }
 
