@@ -20,7 +20,7 @@ class _ShowImage3DScreenState extends State<ShowImage3DScreen> {
   Widget build(BuildContext context) {
     return AppScaffold(
       body: Container(
-        color: Colors.grey,
+        color: Colors.black,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Flutter3DViewer(

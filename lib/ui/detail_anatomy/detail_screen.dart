@@ -137,7 +137,7 @@ class _DetailScreenState extends State<DetailScreen> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   // do something
-                  return ShowImage3DScreen(image3d: widget.arguments["image3DUrl"]);
+                  return ShowImage3DScreen(image3d: _getImage3D());
                 }));
               },
               child: Center(
@@ -229,5 +229,14 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
       ],
     );
+  }
+
+  String _getImage3D() {
+    switch (widget.arguments['name']) {
+      case 'Hộp sọ':
+        return 'assets/glb/so_nao.glb';
+      default:
+        return 'assets/glb/so_nao.glb';
+    }
   }
 }
