@@ -57,14 +57,10 @@ class _TipsScreenState extends State<TipsScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                slivers: <Widget>[
-                  _buildHeader(),
-                  SliverToBoxAdapter(child: _buildBodyList()),
-                ]),
+            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
+              _buildHeader(),
+              SliverToBoxAdapter(child: _buildBodyList()),
+            ]),
           ),
         ],
       ),
@@ -113,16 +109,12 @@ class _TipsScreenState extends State<TipsScreen> {
               if (widget.id == 1) ...[
                 Text(
                   'Có thể bạn chưa biết',
-                  style: OneTheme.of(context)
-                      .title1
-                      .copyWith(fontSize: 20, color: OneColors.white),
+                  style: OneTheme.of(context).title1.copyWith(fontSize: 20, color: OneColors.white),
                 )
               ] else if (widget.id == 2) ...[
                 Text(
                   'Cẩm nang sức khỏe',
-                  style: OneTheme.of(context)
-                      .title1
-                      .copyWith(fontSize: 20, color: OneColors.white),
+                  style: OneTheme.of(context).title1.copyWith(fontSize: 20, color: OneColors.white),
                 )
               ]
             ],
@@ -138,8 +130,7 @@ class _TipsScreenState extends State<TipsScreen> {
         ListView.builder(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
-          padding:
-              const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
           itemCount: _dataListTips.length,
           itemBuilder: (context, index) {
             return Item(arguments: data(index));
@@ -164,11 +155,11 @@ class _TipsScreenState extends State<TipsScreen> {
   Color color() {
     switch (widget.id) {
       case 1:
-        return OneColors.badge.withOpacity(0.9);
+        return OneColors.badge;
       case 2:
-        return OneColors.yellow.withOpacity(0.8);
+        return OneColors.yellow;
       default:
-        return OneColors.badge.withOpacity(0.9);
+        return OneColors.badge;
     }
   }
 }

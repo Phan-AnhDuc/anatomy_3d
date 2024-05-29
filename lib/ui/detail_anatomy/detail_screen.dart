@@ -5,14 +5,12 @@ import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
 import 'package:anatomy_ar/ui/detail_anatomy/detail_more.dart';
 import 'package:anatomy_ar/ui/detail_item/item_list.dart';
+import 'package:anatomy_ar/ui/list_scan/show_3d_image.dart';
 import 'package:flutter/material.dart';
-import 'package:native_ar_viewer/native_ar_viewer.dart';
-import 'dart:io' as io;
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen(
-      {super.key, required this.arguments, required this.argumentsList});
-
+  const DetailScreen({super.key, required this.arguments, required this.argumentsList, required this.title});
+  final title;
   final arguments;
   final argumentsList;
 
@@ -23,15 +21,6 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   final ScrollController _scrollController = ScrollController();
 
-  _launchAR(String model3DUrl) async {
-    if (io.Platform.isAndroid) {
-      await NativeArViewer.launchAR(model3DUrl);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Platform not supported')));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -41,15 +30,11 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                slivers: <Widget>[
-                  _buildHeader(),
-                  SliverToBoxAdapter(child: _buildDescreption()),
-                  SliverToBoxAdapter(child: _buildListRelated()),
-                ]),
+            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
+              _buildHeader(),
+              SliverToBoxAdapter(child: _buildDescreption()),
+              SliverToBoxAdapter(child: _buildListRelated()),
+            ]),
           ),
         ],
       ),
@@ -100,15 +85,11 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
                   Text(
                     '${widget.arguments['name']}',
-                    style: OneTheme.of(context)
-                        .title2
-                        .copyWith(fontSize: 18, color: OneColors.white),
+                    style: OneTheme.of(context).title2.copyWith(fontSize: 18, color: OneColors.white),
                   ),
                   Text(
-                    'Circulatory system',
-                    style: OneTheme.of(context)
-                        .title2
-                        .copyWith(fontSize: 14, color: OneColors.grey),
+                    widget.title,
+                    style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
                   ),
                 ],
               )
@@ -137,9 +118,7 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Hero(
               tag: 'image',
               child: Center(
-                child: CachedImage(
-                    imageUrl: widget.arguments['imageUrl'],
-                    fit: BoxFit.contain),
+                child: CachedImage(imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
               ),
             ),
           ),
@@ -156,15 +135,15 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
             child: InkWell(
               onTap: () {
-                _launchAR(widget.arguments["image3DUrl"]);
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  // do something
+                  return ShowImage3DScreen(image3d: widget.arguments["image3DUrl"]);
+                }));
               },
               child: Center(
                 child: Text(
                   'Hiển thị 3D',
-                  style: OneTheme.of(context).title2.copyWith(
-                      color: OneColors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
+                  style: OneTheme.of(context).title2.copyWith(color: OneColors.white, fontSize: 18, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -184,9 +163,7 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               Text(
                 'Giới thiệu',
-                style: OneTheme.of(context)
-                    .title2
-                    .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               InkWell(
                 onTap: () {
@@ -199,7 +176,10 @@ class _DetailScreenState extends State<DetailScreen> {
                   children: [
                     Text(
                       'Chi tiết giải phẫu',
-                      style: OneTheme.of(context).title2.copyWith(fontSize: 14),
+                      style: OneTheme.of(context).title2.copyWith(
+                            fontSize: 14,
+                            color: const Color.fromARGB(255, 4, 0, 255),
+                          ),
                     ),
                     const SizedBox(width: 10),
                     const Icon(
@@ -216,9 +196,7 @@ class _DetailScreenState extends State<DetailScreen> {
           Text(
             '${widget.arguments['descreption']}',
             textAlign: TextAlign.justify,
-            style: OneTheme.of(context)
-                .title2
-                .copyWith(fontSize: 14, color: OneColors.grey),
+            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
           )
         ],
       ),
@@ -233,21 +211,20 @@ class _DetailScreenState extends State<DetailScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Liên quan',
-            style: OneTheme.of(context)
-                .title2
-                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+            style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
         ),
         ListView.builder(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
-          padding:
-              const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
           itemCount: widget.argumentsList.length,
           itemBuilder: (context, index) {
             return ItemListAnotomy(
-                name: widget.argumentsList[index]['name'],
-                imageUrl: widget.argumentsList[index]['imageUrl']);
+              onTap: () {},
+              name: widget.argumentsList[index]['name'],
+              imageUrl: widget.argumentsList[index]['imageUrl'],
+            );
           },
         ),
       ],

@@ -4,6 +4,7 @@ import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DetailMoreScreen extends StatefulWidget {
   const DetailMoreScreen({super.key, this.arguments});
@@ -16,6 +17,33 @@ class DetailMoreScreen extends StatefulWidget {
 
 class _DetailMoreScreenState extends State<DetailMoreScreen> {
   final ScrollController _scrollController = ScrollController();
+
+  void _showImageDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: OneColors.white,
+          surfaceTintColor: OneColors.white,
+          child: GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: InteractiveViewer(
+              panEnabled: false, // Set it to false
+              boundaryMargin: const EdgeInsets.all(100),
+              minScale: 0.5,
+              maxScale: 2,
+              child: Center(
+                child: CachedImage(imageUrl: widget.arguments['detail'], fit: BoxFit.cover),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -25,14 +53,10 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                slivers: <Widget>[
-                  _buildHeader(),
-                  SliverToBoxAdapter(child: _buildBody()),
-                ]),
+            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
+              _buildHeader(),
+              SliverToBoxAdapter(child: _buildBody()),
+            ]),
           ),
         ],
       ),
@@ -53,28 +77,37 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
 
   Widget _buildHead() {
     return Container(
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 10),
       decoration: const BoxDecoration(
           color: OneColors.white,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(40),
             bottomRight: Radius.circular(40),
           )),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Align(
-            alignment: Alignment.centerLeft,
-            child: Icon(
-              Icons.arrow_back,
-              color: OneColors.black,
-              size: 24,
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Icon(
+                  Icons.arrow_back,
+                  color: OneColors.black,
+                  size: 24,
+                ),
+              ),
             ),
           ),
-        ),
+          const SizedBox(width: 10),
+          Text(
+            'Chi tiết giải phẫu',
+            style: OneTheme.of(context).title1.copyWith(fontSize: 18, color: OneColors.brandVNPT),
+          ),
+        ],
       ),
     );
   }
@@ -92,8 +125,7 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
               color: OneColors.grey.withOpacity(0.3),
             ),
             child: Center(
-              child: CachedImage(
-                  imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
+              child: CachedImage(imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
             ),
           ),
           const SizedBox(height: 10),
@@ -102,13 +134,18 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
             style: OneTheme.of(context).title1.copyWith(fontSize: 18),
           ),
           const SizedBox(height: 10),
-          Text(
-            '${widget.arguments['descreption']}',
-            textAlign: TextAlign.justify,
-            style: OneTheme.of(context)
-                .title2
-                .copyWith(fontSize: 14, color: OneColors.grey),
-          )
+          InkWell(
+            onTap: () {
+              _showImageDialog();
+            },
+            child: Center(
+              child: CachedImage(imageUrl: widget.arguments['detail']),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Center(
+            child: CachedImage(imageUrl: widget.arguments['imageDetail']),
+          ),
         ],
       ),
     );

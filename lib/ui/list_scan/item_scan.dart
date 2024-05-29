@@ -4,25 +4,31 @@ import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/const/ramdom_color.dart';
-import 'package:anatomy_ar/ui/list_scan/show_3d_image.dart';
 import 'package:flutter/material.dart';
+import 'package:native_ar_viewer/native_ar_viewer.dart';
+import 'dart:io' as io;
 
 class ItemScanAr extends StatefulWidget {
-  const ItemScanAr(
-      {super.key,
-      required this.title,
-      required this.descreption,
-      required this.imageUrl});
+  const ItemScanAr({super.key, required this.title, required this.descreption, required this.imageUrl, required this.image3d});
 
   final String title;
   final String descreption;
   final String imageUrl;
+  final String image3d;
 
   @override
   State<ItemScanAr> createState() => _ItemScanArState();
 }
 
 class _ItemScanArState extends State<ItemScanAr> {
+  _launchAR(String model3DUrl) async {
+    if (io.Platform.isAndroid) {
+      await NativeArViewer.launchAR(model3DUrl);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Platform not supported')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Random random = Random();
@@ -31,18 +37,14 @@ class _ItemScanArState extends State<ItemScanAr> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            // do something
-            return const ShowImage3DScreen();
-          }));
+          _launchAR(widget.image3d);
         },
         child: Container(
           decoration: BoxDecoration(
             color: ColorRamdom.animalColor[indexRandom],
             borderRadius: BorderRadius.circular(5),
           ),
-          padding:
-              const EdgeInsets.only(left: 30, top: 10, bottom: 10, right: 15),
+          padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10, right: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -56,9 +58,7 @@ class _ItemScanArState extends State<ItemScanAr> {
                   const SizedBox(height: 10),
                   Text(
                     widget.descreption,
-                    style: OneTheme.of(context)
-                        .title2
-                        .copyWith(fontSize: 14, color: OneColors.grey),
+                    style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
                   ),
                 ],
               ),

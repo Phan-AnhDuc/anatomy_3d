@@ -5,10 +5,8 @@ import 'package:anatomy_ar/ui/detail_anatomy/detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class ItemDetailAnotomy extends StatelessWidget {
-  const ItemDetailAnotomy(
-      {Key? key, required this.arguments, required this.argumentsList})
-      : super(key: key);
-
+  const ItemDetailAnotomy({Key? key, required this.arguments, required this.argumentsList, required this.title}) : super(key: key);
+  final title;
   final arguments;
   final argumentsList;
 
@@ -18,7 +16,10 @@ class ItemDetailAnotomy extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return DetailScreen(
-              arguments: arguments, argumentsList: argumentsList);
+            arguments: arguments,
+            argumentsList: argumentsList,
+            title: title,
+          );
         }));
       },
       child: Container(
@@ -44,9 +45,7 @@ class ItemDetailAnotomy extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: SizedBox(
                     height: 90,
-                    child: CachedImage(
-                        imageUrl: arguments['imageUrl'] ?? '',
-                        fit: BoxFit.contain),
+                    child: CachedImage(imageUrl: arguments['imageUrl'] ?? '', fit: BoxFit.contain),
                   )),
             ),
             const SizedBox(height: 15),

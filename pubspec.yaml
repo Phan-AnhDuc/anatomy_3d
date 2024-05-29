@@ -93,7 +93,7 @@ flutter:
   fonts:
     - family: ARSans
       fonts:
-        - asset: assets/font/OpenSans-Regular.ttf
+        - asset: assets/font/SVNGilroy-Regular.otf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

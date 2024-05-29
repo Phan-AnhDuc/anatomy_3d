@@ -19,6 +19,7 @@ class Item extends StatelessWidget {
         }));
       },
       child: Container(
+        margin: const EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: OneColors.white,
@@ -64,7 +65,7 @@ class Item extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'More',
+                    'Chi tiết',
                     style: OneTheme.of(context).title2.copyWith(
                           fontSize: 14,
                           color: OneColors.grey,
