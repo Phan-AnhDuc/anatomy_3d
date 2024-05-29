@@ -7,7 +7,8 @@ import 'package:anatomy_ar/const/ramdom_color.dart';
 import 'package:flutter/material.dart';
 
 class ItemListAnotomy extends StatelessWidget {
-  const ItemListAnotomy({super.key, required this.name, required this.imageUrl});
+  const ItemListAnotomy(
+      {super.key, required this.name, required this.imageUrl});
 
   final String name;
   final String imageUrl;
@@ -21,7 +22,9 @@ class ItemListAnotomy extends StatelessWidget {
       height: 100,
       margin: const EdgeInsets.only(left: 6, right: 6, top: 5, bottom: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: ColorRamdom.animalColor[indexRandom]),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: ColorRamdom.animalColor[indexRandom]),
       child: Row(
         children: [
           SizedBox(
@@ -38,8 +41,10 @@ class ItemListAnotomy extends StatelessWidget {
                 style: OneTheme.of(context).title2.copyWith(fontSize: 18),
               ),
               Text(
-                'Organ system',
-                style: OneTheme.of(context).title2.copyWith(fontSize: 16, color: OneColors.grey),
+                'Đầu',
+                style: OneTheme.of(context)
+                    .title2
+                    .copyWith(fontSize: 16, color: OneColors.grey),
               )
             ],
           )

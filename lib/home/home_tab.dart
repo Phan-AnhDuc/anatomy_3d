@@ -36,20 +36,23 @@ class _HomeTabsState extends State<HomeTabs> {
             Container(
               height: 60,
               width: 60,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40)),
-              child: Image.asset(ArImages.ar_chi_duoi),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(40)),
+              child: Image.asset(ArImages.main_menu),
             ),
             Container(
               height: 60,
               width: 60,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40)),
-              child: Image.asset(ArImages.ar_chi_tren),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(40)),
+              child: Image.asset(ArImages.ar_menu),
             ),
             Container(
               height: 60,
               width: 60,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40)),
-              child: Image.asset(ArImages.ar_than),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(40)),
+              child: Image.asset(ArImages.history),
             ),
           ],
           onTap: ((int index) {

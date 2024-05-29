@@ -39,7 +39,10 @@ class _IntroScreenState extends State<IntroScreen> {
               if (value == 2) {
                 Future.delayed(const Duration(seconds: 2), (() {
                   setState(() {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeTabs()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeTabs()));
                   });
                 }));
               }

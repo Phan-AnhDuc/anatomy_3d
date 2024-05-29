@@ -120,7 +120,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                   )),
                               const SizedBox(height: 20),
                               Text(
-                                'Chọn động vật bạn muốn quét',
+                                'Chọn bộ phận bạn muốn quét',
                                 style: OneTheme.of(context)
                                     .title1
                                     .copyWith(fontSize: 10),
@@ -150,7 +150,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                   )),
                               const SizedBox(height: 20),
                               Text(
-                                'Quét vào hình ảnh cố định của nó',
+                                'Chọn mặt phẳng để hiển thị',
                                 style: OneTheme.of(context)
                                     .title1
                                     .copyWith(fontSize: 10),

@@ -8,9 +8,14 @@ class ArImages {
   static const String ar_chi_tren = 'assets/image/chi_tren.png';
   static const String ar_dau = 'assets/image/dau.png';
   static const String ar_than = 'assets/image/than.png';
+  static const String main_menu = 'assets/image/icon_1.png';
+  static const String ar_menu = 'assets/image/icon_2.png';
+  static const String history = 'assets/image/icon_3.png';
 
-  static const String co_the_ban_chua_biet = 'assets/image/co_the_ban_chua_biet.png';
-  static const String co_the_muon_ban_biet = 'assets/image/co_the_muon_ban_biet.png';
+  static const String co_the_ban_chua_biet =
+      'assets/image/co_the_ban_chua_biet.png';
+  static const String co_the_muon_ban_biet =
+      'assets/image/co_the_muon_ban_biet.png';
 
   static const String ic_menu = 'assets/svg/ic_menu.svg';
   static const String ic_dau = 'assets/svg/ic_dau.svg';
@@ -18,8 +23,10 @@ class ArImages {
   static const String ic_chi_tren = 'assets/svg/ic_chi_tren.svg';
   static const String ic_chi_duoi = 'assets/svg/ic_chi_duoi.svg';
 
-  static const String ic_co_the_ban_chua_biet = 'assets/svg/co_the_ban_chua_biet.svg';
-  static const String ic_co_the_muon_ban_biet = 'assets/svg/co_the_muon_ban_biet.svg';
+  static const String ic_co_the_ban_chua_biet =
+      'assets/svg/co_the_ban_chua_biet.svg';
+  static const String ic_co_the_muon_ban_biet =
+      'assets/svg/co_the_muon_ban_biet.svg';
 
   static const String intro_1 = 'assets/image/intro_1.png';
   static const String intro_2 = 'assets/image/intro_2.png';
