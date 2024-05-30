@@ -4,10 +4,11 @@ import 'package:anatomy_ar/const/ar_image.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
 import 'package:anatomy_ar/firebase/fire_base.dart';
-import 'package:anatomy_ar/ui/detail_item/anatomy_detail_screen.dart';
+import 'package:anatomy_ar/home/app_router.dart';
 import 'package:anatomy_ar/ui/item_search_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import 'tips/tips_screen.dart';
 
@@ -472,9 +473,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       {required String svgUrl, required String title, required int id}) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return AnotomyDetailScreen(id: id);
-        }));
+        Get.toNamed(AppRoute.anatomyDetailScreen.name, arguments: [id]);
       },
       child: Column(
         children: [

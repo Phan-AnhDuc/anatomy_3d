@@ -2,9 +2,10 @@ import 'package:anatomy_ar/const/app_scafford.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_image.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
-import 'package:anatomy_ar/home/home_tab.dart';
+import 'package:anatomy_ar/home/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -39,10 +40,7 @@ class _IntroScreenState extends State<IntroScreen> {
               if (value == 2) {
                 Future.delayed(const Duration(seconds: 2), (() {
                   setState(() {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeTabs()));
+                    Get.toNamed(AppRoute.homeTab.name);
                   });
                 }));
               }

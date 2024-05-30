@@ -1,11 +1,20 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
-import 'package:anatomy_ar/ui/detail_anatomy/detail_screen.dart';
+import 'package:anatomy_ar/const/constant.dart';
+import 'package:anatomy_ar/home/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ItemDetailAnotomy extends StatelessWidget {
-  const ItemDetailAnotomy({Key? key, required this.arguments, required this.argumentsList, required this.title}) : super(key: key);
+  const ItemDetailAnotomy(
+      {Key? key,
+      required this.arguments,
+      required this.argumentsList,
+      required this.title})
+      : super(key: key);
   final title;
   final arguments;
   final argumentsList;
@@ -14,13 +23,12 @@ class ItemDetailAnotomy extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return DetailScreen(
-            arguments: arguments,
-            argumentsList: argumentsList,
-            title: title,
-          );
-        }));
+        Get.toNamed(AppRoute.detailScreen.name, arguments: [
+          arguments,
+          argumentsList,
+          FromRoute.listItem,
+          title,
+        ]);
       },
       child: Container(
         margin: const EdgeInsets.all(10),
@@ -45,7 +53,9 @@ class ItemDetailAnotomy extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: SizedBox(
                     height: 90,
-                    child: CachedImage(imageUrl: arguments['imageUrl'] ?? '', fit: BoxFit.contain),
+                    child: CachedImage(
+                        imageUrl: arguments['imageUrl'] ?? '',
+                        fit: BoxFit.contain),
                   )),
             ),
             const SizedBox(height: 15),

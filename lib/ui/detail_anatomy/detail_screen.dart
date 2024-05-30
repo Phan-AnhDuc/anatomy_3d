@@ -1,22 +1,29 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
 import 'package:anatomy_ar/const/app_scafford.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
+import 'package:anatomy_ar/const/constant.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
+import 'package:anatomy_ar/home/app_router.dart';
 import 'package:anatomy_ar/ui/detail_anatomy/detail_more.dart';
 import 'package:anatomy_ar/ui/detail_item/item_list.dart';
 import 'package:anatomy_ar/ui/list_scan/show_3d_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen(
       {super.key,
       required this.arguments,
       required this.argumentsList,
-      required this.title});
+      required this.title,
+      required this.fromRoute});
   final title;
   final arguments;
   final argumentsList;
+  final FromRoute? fromRoute;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -79,7 +86,14 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  if (widget.fromRoute == FromRoute.listItem) {
+                    Get.until((Route<dynamic> route) =>
+                        route.settings.name ==
+                        AppRoute.anatomyDetailScreen.name);
+                  } else {
+                    Get.until((Route<dynamic> route) =>
+                        route.settings.name == AppRoute.homeTab.name);
+                  }
                 },
                 child: const Icon(
                   Icons.arrow_back,
@@ -245,8 +259,8 @@ class _DetailScreenState extends State<DetailScreen> {
           itemCount: widget.argumentsList.length,
           itemBuilder: (context, index) {
             return ItemListAnotomy(
-              name: widget.argumentsList[index]['name'],
-              imageUrl: widget.argumentsList[index]['imageUrl'],
+              arguments: widget.argumentsList[index],
+              argumentsList: widget.argumentsList,
             );
           },
         ),

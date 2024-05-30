@@ -1,18 +1,35 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
+import 'package:anatomy_ar/const/constant.dart';
+import 'package:anatomy_ar/home/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ItemListAnotomy extends StatelessWidget {
+class ItemListAnotomy extends StatefulWidget {
   const ItemListAnotomy(
-      {super.key, required this.name, required this.imageUrl});
+      {super.key, required this.arguments, required this.argumentsList});
 
-  final String name;
-  final String imageUrl;
+  final arguments;
+  final argumentsList;
 
+  @override
+  State<ItemListAnotomy> createState() => _ItemListAnotomyState();
+}
+
+class _ItemListAnotomyState extends State<ItemListAnotomy> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AppRoute.detailScreen.name, arguments: [
+          widget.arguments,
+          widget.argumentsList,
+          FromRoute.listItem,
+          _title()
+        ]);
+      },
       child: Container(
         height: 100,
         margin: const EdgeInsets.only(left: 6, right: 6, top: 5, bottom: 6),
@@ -24,16 +41,31 @@ class ItemListAnotomy extends StatelessWidget {
           children: [
             SizedBox(
               width: 51,
-              child: CachedImage(imageUrl: imageUrl, fit: BoxFit.contain),
+              child: CachedImage(
+                  imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
             ),
             const SizedBox(width: 15),
             Text(
-              name,
+              '${widget.arguments['name']}',
               style: OneTheme.of(context).title2.copyWith(fontSize: 18),
             )
           ],
         ),
       ),
     );
+  }
+
+  String _title() {
+    switch (widget.arguments['id']) {
+      case '1':
+        return 'Đầu';
+      case '2':
+        return 'Thân';
+      case '3':
+        return 'Chi trên';
+      case '4':
+        return 'Chi dưới';
+    }
+    return '';
   }
 }

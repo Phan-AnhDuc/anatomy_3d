@@ -1,7 +1,11 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
-import 'package:anatomy_ar/ui/detail_anatomy/detail_screen.dart';
+import 'package:anatomy_ar/const/constant.dart';
+import 'package:anatomy_ar/home/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ItemSearchHomePage extends StatefulWidget {
   const ItemSearchHomePage(
@@ -19,13 +23,12 @@ class _ItemSearchHomePageState extends State<ItemSearchHomePage> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return DetailScreen(
-            arguments: widget.arguments,
-            argumentsList: widget.argumentsList,
-            title: _title(),
-          );
-        }));
+        Get.toNamed(AppRoute.detailScreen.name, arguments: [
+          widget.arguments,
+          widget.argumentsList,
+          FromRoute.search,
+          _title()
+        ]);
       },
       child: Container(
         height: 100,
