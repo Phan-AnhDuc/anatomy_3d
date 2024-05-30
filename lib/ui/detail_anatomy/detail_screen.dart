@@ -245,7 +245,6 @@ class _DetailScreenState extends State<DetailScreen> {
           itemCount: widget.argumentsList.length,
           itemBuilder: (context, index) {
             return ItemListAnotomy(
-              onTap: () {},
               name: widget.argumentsList[index]['name'],
               imageUrl: widget.argumentsList[index]['imageUrl'],
             );

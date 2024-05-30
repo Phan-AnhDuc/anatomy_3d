@@ -3,7 +3,9 @@ import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_image.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
 import 'package:anatomy_ar/const/sliver_app_bar_delegate.dart';
+import 'package:anatomy_ar/firebase/fire_base.dart';
 import 'package:anatomy_ar/ui/detail_item/anatomy_detail_screen.dart';
+import 'package:anatomy_ar/ui/item_search_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,6 +20,59 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   final ScrollController _scrollController = ScrollController();
+  late final TextEditingController _textController;
+
+  List<Map<String, dynamic>> dataList = [];
+  List<Map<String, dynamic>> dataListFilter = [];
+  bool isListFilterEmty = false;
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController();
+    _layListDanhSachSearch();
+  }
+
+  String removeDiacritics(String str) {
+    const withDiacritics =
+        'áàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđ';
+    const withoutDiacritics = 'aaaaaaaeeeeeeiiiiiooooooooouuuuuuyyyyyd';
+
+    for (int i = 0; i < withDiacritics.length; i++) {
+      str = str.replaceAll(withDiacritics[i], withoutDiacritics[i ~/ 5]);
+    }
+
+    return str;
+  }
+
+  bool fuzzySearch(String query, String name) {
+    int queryIndex = 0;
+    int nameIndex = 0;
+
+    while (queryIndex < query.length && nameIndex < name.length) {
+      if (query[queryIndex] == name[nameIndex]) {
+        queryIndex++;
+      }
+      nameIndex++;
+    }
+
+    return queryIndex == query.length;
+  }
+
+  void _filterDataList(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        dataListFilter = dataList;
+      });
+    } else {
+      final searchLower = removeDiacritics(query.toLowerCase());
+      setState(() {
+        dataListFilter = dataList.where((item) {
+          final name = removeDiacritics(item['name']?.toLowerCase() ?? '');
+          return fuzzySearch(searchLower, name);
+        }).toList();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +83,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
-              _buildHeader(),
-              SliverToBoxAdapter(child: _buildCategory()),
-              SliverToBoxAdapter(child: _buildExtend()),
-            ]),
+            child: CustomScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: <Widget>[
+                  _buildHeader(),
+                  if (!isListFilterEmty) ...[
+                    SliverToBoxAdapter(child: _buildCategory()),
+                    SliverToBoxAdapter(child: _buildExtend()),
+                  ] else ...[
+                    SliverToBoxAdapter(child: _buildListSearch())
+                  ]
+                ]),
           ),
         ],
       ),
@@ -75,7 +138,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 ),
                 Text(
                   'Khám phá cơ thể con người',
-                  style: OneTheme.of(context).title2.copyWith(fontSize: 20, color: OneColors.white),
+                  style: OneTheme.of(context)
+                      .title2
+                      .copyWith(fontSize: 20, color: OneColors.white),
                 )
               ],
             ),
@@ -125,29 +190,54 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     cursorColor: OneColors.white,
                     decoration: const InputDecoration(
                       hintText: 'Search',
-                      hintStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: OneColors.textGrey1),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.all(Radius.circular(8))),
-                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.all(Radius.circular(8))),
+                      hintStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: OneColors.textGrey1),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
                       contentPadding: EdgeInsets.only(left: 20.0, right: 5.0),
                       fillColor: Colors.transparent,
                       filled: true,
                       counterText: "",
                     ),
-                    style: OneTheme.of(context).textFieldText.copyWith(color: OneColors.textGreyDark),
+                    style: OneTheme.of(context)
+                        .textFieldText
+                        .copyWith(color: OneColors.textGreyDark),
                     onTap: () {},
                     onEditingComplete: () {},
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        _filterDataList(value);
+                        isListFilterEmty = true;
+                      } else {
+                        setState(() {
+                          isListFilterEmty = false;
+                        });
+                      }
+                    },
                     maxLength: 20,
+                    controller: _textController,
                   ),
                 )),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: OneColors.white,
-                  ),
-                  child: const Icon(
-                    Icons.search,
-                    color: OneColors.brandVNP,
+                InkWell(
+                  onTap: () {
+                    _filterDataList(_textController.text.trim());
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: OneColors.white,
+                    ),
+                    child: const Icon(
+                      Icons.search,
+                      color: OneColors.brandVNP,
+                    ),
                   ),
                 ),
               ],
@@ -158,6 +248,34 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
+  Widget _buildListSearch() {
+    return dataListFilter.isNotEmpty
+        ? ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            padding:
+                const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
+            itemCount: dataListFilter.length,
+            itemBuilder: (context, index) {
+              return ItemSearchHomePage(
+                arguments: dataListFilter[index],
+                argumentsList: dataList,
+              );
+            },
+          )
+        : Container(
+            margin: const EdgeInsets.only(top: 80),
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+              height: 200,
+              child: Image.asset(
+                ArImages.no_search,
+                fit: BoxFit.contain,
+              ),
+            ),
+          );
+  }
+
   Widget _buildCategory() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -166,12 +284,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
         children: [
           Text(
             'Danh mục',
-            style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+            style: OneTheme.of(context)
+                .title2
+                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 4),
           Text(
             'Chọn phần muốn khám phá',
-            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
+            style: OneTheme.of(context)
+                .title2
+                .copyWith(fontSize: 14, color: OneColors.textGrey1),
           ),
           const SizedBox(height: 20),
           Row(
@@ -179,8 +301,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: [
               _buildItemBody(svgUrl: ArImages.ic_dau, title: 'Đầu', id: 1),
               _buildItemBody(svgUrl: ArImages.ic_than, title: 'Thân', id: 2),
-              _buildItemBody(svgUrl: ArImages.ic_chi_tren, title: 'Chi trên', id: 3),
-              _buildItemBody(svgUrl: ArImages.ic_chi_duoi, title: 'Chi dưới', id: 4),
+              _buildItemBody(
+                  svgUrl: ArImages.ic_chi_tren, title: 'Chi trên', id: 3),
+              _buildItemBody(
+                  svgUrl: ArImages.ic_chi_duoi, title: 'Chi dưới', id: 4),
             ],
           )
         ],
@@ -196,12 +320,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
         children: [
           Text(
             'Mở rộng',
-            style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+            style: OneTheme.of(context)
+                .title2
+                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 4),
           Text(
             'Những điều thú vị mà bạn nên biết',
-            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
+            style: OneTheme.of(context)
+                .title2
+                .copyWith(fontSize: 14, color: OneColors.textGrey1),
           ),
           const SizedBox(height: 10),
           InkWell(
@@ -212,7 +340,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color.fromARGB(255, 151, 184, 255).withOpacity(0.2)),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color.fromARGB(255, 151, 184, 255)
+                      .withOpacity(0.2)),
               child: Row(
                 children: [
                   Expanded(
@@ -222,14 +353,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         Text(
                           'Có thể bạn chưa biết',
-                          style: OneTheme.of(context).title2.copyWith(fontSize: 18),
+                          style: OneTheme.of(context)
+                              .title2
+                              .copyWith(fontSize: 18),
                         ),
                         const SizedBox(height: 4),
                         SizedBox(
                           width: 200,
                           child: Text(
                             'Những điều thú vị màn bạn nên biết',
-                            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
+                            style: OneTheme.of(context).title2.copyWith(
+                                fontSize: 14, color: OneColors.textGrey1),
                           ),
                         ),
                       ],
@@ -255,7 +389,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Color.fromARGB(255, 253, 216, 115).withOpacity(0.2)),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color.fromARGB(255, 253, 216, 115)
+                      .withOpacity(0.2)),
               child: Row(
                 children: [
                   Expanded(
@@ -265,14 +402,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         Text(
                           'Cẩm nang sức khỏe',
-                          style: OneTheme.of(context).title2.copyWith(fontSize: 18),
+                          style: OneTheme.of(context)
+                              .title2
+                              .copyWith(fontSize: 18),
                         ),
                         const SizedBox(height: 4),
                         SizedBox(
                           width: 200,
                           child: Text(
                             'Những điều thú vị màn bạn nên biết',
-                            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
+                            style: OneTheme.of(context).title2.copyWith(
+                                fontSize: 14, color: OneColors.textGrey1),
                           ),
                         ),
                       ],
@@ -328,7 +468,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
-  Widget _buildItemBody({required String svgUrl, required String title, required int id}) {
+  Widget _buildItemBody(
+      {required String svgUrl, required String title, required int id}) {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -348,5 +489,20 @@ class _HomePageScreenState extends State<HomePageScreen> {
         ],
       ),
     );
+  }
+
+  void _layListDanhSachSearch() {
+    layDanhSachDau().then((data) {
+      dataList.addAll(data);
+    });
+    layDanhSachThan().then((data) {
+      dataList.addAll(data);
+    });
+    layDanhSachChiTren().then((data) {
+      dataList.addAll(data);
+    });
+    layDanhSachChiDuoi().then((data) {
+      dataList.addAll(data);
+    });
   }
 }
