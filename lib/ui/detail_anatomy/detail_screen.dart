@@ -9,7 +9,11 @@ import 'package:anatomy_ar/ui/list_scan/show_3d_image.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key, required this.arguments, required this.argumentsList, required this.title});
+  const DetailScreen(
+      {super.key,
+      required this.arguments,
+      required this.argumentsList,
+      required this.title});
   final title;
   final arguments;
   final argumentsList;
@@ -30,11 +34,15 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
-              _buildHeader(),
-              SliverToBoxAdapter(child: _buildDescreption()),
-              SliverToBoxAdapter(child: _buildListRelated()),
-            ]),
+            child: CustomScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: <Widget>[
+                  _buildHeader(),
+                  SliverToBoxAdapter(child: _buildDescreption()),
+                  SliverToBoxAdapter(child: _buildListRelated()),
+                ]),
           ),
         ],
       ),
@@ -85,11 +93,15 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
                   Text(
                     '${widget.arguments['name']}',
-                    style: OneTheme.of(context).title2.copyWith(fontSize: 18, color: OneColors.white),
+                    style: OneTheme.of(context)
+                        .title2
+                        .copyWith(fontSize: 18, color: OneColors.white),
                   ),
                   Text(
                     widget.title,
-                    style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
+                    style: OneTheme.of(context)
+                        .title2
+                        .copyWith(fontSize: 14, color: OneColors.grey),
                   ),
                 ],
               )
@@ -118,7 +130,9 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Hero(
               tag: 'image',
               child: Center(
-                child: CachedImage(imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
+                child: CachedImage(
+                    imageUrl: widget.arguments['imageUrl'],
+                    fit: BoxFit.contain),
               ),
             ),
           ),
@@ -143,7 +157,10 @@ class _DetailScreenState extends State<DetailScreen> {
               child: Center(
                 child: Text(
                   'Hiển thị 3D',
-                  style: OneTheme.of(context).title2.copyWith(color: OneColors.white, fontSize: 18, fontWeight: FontWeight.w600),
+                  style: OneTheme.of(context).title2.copyWith(
+                      color: OneColors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -163,7 +180,9 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               Text(
                 'Giới thiệu',
-                style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                style: OneTheme.of(context)
+                    .title2
+                    .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               InkWell(
                 onTap: () {
@@ -196,7 +215,9 @@ class _DetailScreenState extends State<DetailScreen> {
           Text(
             '${widget.arguments['descreption']}',
             textAlign: TextAlign.justify,
-            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
+            style: OneTheme.of(context)
+                .title2
+                .copyWith(fontSize: 14, color: OneColors.grey),
           )
         ],
       ),
@@ -211,13 +232,16 @@ class _DetailScreenState extends State<DetailScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Liên quan',
-            style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+            style: OneTheme.of(context)
+                .title2
+                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
         ),
         ListView.builder(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
-          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
+          padding:
+              const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
           itemCount: widget.argumentsList.length,
           itemBuilder: (context, index) {
             return ItemListAnotomy(
@@ -235,6 +259,42 @@ class _DetailScreenState extends State<DetailScreen> {
     switch (widget.arguments['name']) {
       case 'Hộp sọ':
         return 'assets/glb/so_nao.glb';
+      case 'Bàn chân':
+        return 'assets/glb/ban_chan.glb';
+      case 'Xương bàn tay':
+        return 'assets/glb/ban_tay.glb';
+      case 'Cơ chân':
+        return 'assets/glb/chan_co.glb';
+      case 'Xương sống':
+        return 'assets/glb/cot_song_0logo.glb';
+      case 'Xương hàm':
+        return 'assets/glb/ham_rang.glb';
+      case 'Hệ tiêu hoá':
+        return 'assets/glb/he_tieu_hoa.glb';
+      case 'Mắt':
+        return 'assets/glb/mat.glb';
+      case 'Ống dẫn khí':
+        return 'assets/glb/ong_dan_khi.glb';
+      case 'Phổi':
+        return 'assets/glb/phoi.glb';
+      case 'Tai':
+        return 'assets/glb/tai.glb';
+      case 'Cơ cánh tay':
+        return 'assets/glb/tay_co.glb';
+      case 'Hệ tiêu hoá':
+        return 'assets/glb/he_tieu_hoa.glb';
+      case 'Xương chi trên':
+        return 'assets/glb/tay_xuong.glb';
+      case 'Tim':
+        return 'assets/glb/tim.glb';
+      case 'Xương chậu':
+        return 'assets/glb/xuong_chau.glb';
+      case 'Xương chi dưới':
+        return 'assets/glb/xuong_chi_duoi.glb';
+      case 'Xương sườn':
+        return 'assets/glb/xuong_suon.glb';
+      case 'Não':
+        return 'assets/glb/nao_2.glb';
       default:
         return 'assets/glb/so_nao.glb';
     }
