@@ -78,7 +78,7 @@ class _IntroScreenState extends State<IntroScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 70),
                     child: Text(
-                      'Quét ảnh hiển thị mô hình 3D trong không gian thực',
+                      'Hiển thị mô hình 3D với các tương tác trực quan',
                       style: OneTheme.of(context).body1.copyWith(fontSize: 28),
                       textAlign: TextAlign.center,
                     ),

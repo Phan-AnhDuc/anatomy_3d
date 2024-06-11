@@ -361,7 +361,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         SizedBox(
                           width: 200,
                           child: Text(
-                            'Những điều thú vị màn bạn nên biết',
+                            'Các thông tin thú vị về cơ thể con người',
                             style: OneTheme.of(context).title2.copyWith(
                                 fontSize: 14, color: OneColors.textGrey1),
                           ),
@@ -410,7 +410,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         SizedBox(
                           width: 200,
                           child: Text(
-                            'Những điều thú vị màn bạn nên biết',
+                            'Cẩm nang về chăm sóc sức khoẻ',
                             style: OneTheme.of(context).title2.copyWith(
                                 fontSize: 14, color: OneColors.textGrey1),
                           ),
