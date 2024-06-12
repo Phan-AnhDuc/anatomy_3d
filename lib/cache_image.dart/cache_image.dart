@@ -17,16 +17,12 @@ class CachedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 130,
-      height: 130,
       child: CachedNetworkImage(
         fit: fit,
         cacheManager: OneCacheManager.customCacheManager,
         imageUrl: imageUrl,
         key: UniqueKey(),
-        placeholder: (context, url) => progress == true
-            ? const CircularProgressIndicator()
-            : const SizedBox(),
+        placeholder: (context, url) => progress == true ? const CircularProgressIndicator() : const SizedBox(),
         errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
     );
