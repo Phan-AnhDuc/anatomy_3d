@@ -35,7 +35,8 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
               minScale: 0.5,
               maxScale: 2,
               child: Center(
-                child: CachedImage(imageUrl: widget.arguments['detail'], fit: BoxFit.cover),
+                child: CachedImage(
+                    imageUrl: widget.arguments['detail'], fit: BoxFit.cover),
               ),
             ),
           ),
@@ -53,10 +54,14 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
-              _buildHeader(),
-              SliverToBoxAdapter(child: _buildBody()),
-            ]),
+            child: CustomScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: <Widget>[
+                  _buildHeader(),
+                  SliverToBoxAdapter(child: _buildBody()),
+                ]),
           ),
         ],
       ),
@@ -105,7 +110,9 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
           const SizedBox(width: 10),
           Text(
             'Chi tiết giải phẫu',
-            style: OneTheme.of(context).title1.copyWith(fontSize: 18, color: OneColors.brandVNPT),
+            style: OneTheme.of(context)
+                .title1
+                .copyWith(fontSize: 18, color: OneColors.brandVNPT),
           ),
         ],
       ),
@@ -125,7 +132,8 @@ class _DetailMoreScreenState extends State<DetailMoreScreen> {
               color: OneColors.grey.withOpacity(0.3),
             ),
             child: Center(
-              child: CachedImage(imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
+              child: CachedImage(
+                  imageUrl: widget.arguments['imageUrl'], fit: BoxFit.contain),
             ),
           ),
           const SizedBox(height: 10),
