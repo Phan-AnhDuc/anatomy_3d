@@ -244,10 +244,13 @@ class _DetailScreenState extends State<DetailScreen> {
               const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
           itemCount: widget.argumentsList.length,
           itemBuilder: (context, index) {
-            return ItemListAnotomy(
-              name: widget.argumentsList[index]['name'],
-              imageUrl: widget.argumentsList[index]['imageUrl'],
-            );
+            return widget.arguments['name'] !=
+                    widget.argumentsList[index]['name']
+                ? ItemListAnotomy(
+                    name: widget.argumentsList[index]['name'],
+                    imageUrl: widget.argumentsList[index]['imageUrl'],
+                  )
+                : Container();
           },
         ),
       ],
