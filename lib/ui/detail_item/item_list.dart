@@ -9,7 +9,11 @@ import 'package:get/get.dart';
 
 class ItemListAnotomy extends StatefulWidget {
   const ItemListAnotomy(
-      {super.key, required this.arguments, required this.argumentsList});
+      {super.key,
+      required this.arguments,
+      required this.argumentsList,
+      required name,
+      required imageUrl});
 
   final arguments;
   final argumentsList;

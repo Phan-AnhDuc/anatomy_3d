@@ -104,7 +104,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   Widget _buildHeader() {
-    final double headerHeight = 190 + MediaQuery.of(context).padding.top;
+    final double headerHeight = 115 + MediaQuery.of(context).padding.top;
     return SliverPersistentHeader(
       pinned: true,
       delegate: SliverAppBarDelegate(
@@ -120,28 +120,29 @@ class _HomePageScreenState extends State<HomePageScreen> {
       decoration: const BoxDecoration(
           color: OneColors.brandVNPT,
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(40),
-            bottomRight: Radius.circular(40),
+            bottomLeft: Radius.circular(32),
+            bottomRight: Radius.circular(32),
           )),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SvgPicture.asset(
-                  ArImages.ic_menu,
-                  color: OneColors.white,
-                ),
+                // SvgPicture.asset(
+                //   ArImages.ic_menu,
+                //   color: OneColors.white,
+                // ),
                 Text(
                   'Khám phá cơ thể con người',
-                  style: OneTheme.of(context)
-                      .title2
-                      .copyWith(fontSize: 20, color: OneColors.white),
+                  style: OneTheme.of(context).title2.copyWith(
+                        fontSize: 20,
+                        color: OneColors.white,
+                      ),
                 )
               ],
             ),
@@ -154,7 +155,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   Widget _buildSearch() {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       child: Stack(
         children: [
           Positioned.fill(
@@ -362,7 +363,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         SizedBox(
                           width: 200,
                           child: Text(
-                            'Những điều thú vị màn bạn nên biết',
+                            'Các thông tin thú vị về cơ thể con người',
                             style: OneTheme.of(context).title2.copyWith(
                                 fontSize: 14, color: OneColors.textGrey1),
                           ),
@@ -411,7 +412,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         SizedBox(
                           width: 200,
                           child: Text(
-                            'Những điều thú vị màn bạn nên biết',
+                            'Cẩm nang về chăm sóc sức khoẻ',
                             style: OneTheme.of(context).title2.copyWith(
                                 fontSize: 14, color: OneColors.textGrey1),
                           ),

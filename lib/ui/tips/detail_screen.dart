@@ -25,11 +25,15 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
-              _buildHeader(),
-              SliverToBoxAdapter(child: _buildImage()),
-              SliverToBoxAdapter(child: _buildBody()),
-            ]),
+            child: CustomScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: <Widget>[
+                  _buildHeader(),
+                  SliverToBoxAdapter(child: _buildImage()),
+                  SliverToBoxAdapter(child: _buildBody()),
+                ]),
           ),
         ],
       ),
@@ -84,7 +88,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   Widget _buildImage() {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: CachedImage(
         imageUrl: widget.arguments['imageUrl'],
         fit: BoxFit.contain,
@@ -94,7 +98,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   Widget _buildBody() {
     return Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Text(
           widget.arguments['full'],
           style: OneTheme.of(context).title2.copyWith(fontSize: 18),
