@@ -45,14 +45,10 @@ class _ScanScreenState extends State<ScanScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                slivers: <Widget>[
-                  _buildHeader(),
-                  SliverToBoxAdapter(child: _buildListScan()),
-                ]),
+            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
+              _buildHeader(),
+              SliverToBoxAdapter(child: _buildListScan()),
+            ]),
           ),
         ],
       ),
@@ -60,7 +56,7 @@ class _ScanScreenState extends State<ScanScreen> {
   }
 
   Widget _buildHeader() {
-    final double headerHeight = 230 + MediaQuery.of(context).padding.top;
+    final double headerHeight = 240 + MediaQuery.of(context).padding.top;
     return SliverPersistentHeader(
       pinned: true,
       delegate: SliverAppBarDelegate(
@@ -85,9 +81,7 @@ class _ScanScreenState extends State<ScanScreen> {
           const SizedBox(height: 30),
           Text(
             'AR',
-            style: OneTheme.of(context)
-                .title1
-                .copyWith(fontSize: 18, color: OneColors.white),
+            style: OneTheme.of(context).title1.copyWith(fontSize: 18, color: OneColors.white),
           ),
           const SizedBox(height: 20),
           Padding(
@@ -101,8 +95,7 @@ class _ScanScreenState extends State<ScanScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, left: 10, right: 10, bottom: 10),
+                    padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -120,9 +113,7 @@ class _ScanScreenState extends State<ScanScreen> {
                               const SizedBox(height: 10),
                               Text(
                                 'Chọn bộ phận bạn muốn quét',
-                                style: OneTheme.of(context)
-                                    .title1
-                                    .copyWith(fontSize: 10),
+                                style: OneTheme.of(context).title1.copyWith(fontSize: 10),
                                 textAlign: TextAlign.center,
                               )
                             ],
@@ -150,9 +141,7 @@ class _ScanScreenState extends State<ScanScreen> {
                               const SizedBox(height: 20),
                               Text(
                                 'Chọn mặt phẳng để hiển thị',
-                                style: OneTheme.of(context)
-                                    .title1
-                                    .copyWith(fontSize: 10),
+                                style: OneTheme.of(context).title1.copyWith(fontSize: 10),
                                 textAlign: TextAlign.center,
                               )
                             ],
@@ -180,9 +169,7 @@ class _ScanScreenState extends State<ScanScreen> {
                               const SizedBox(height: 20),
                               Text(
                                 'Giữ cố định máy để hiện ảnh 3D',
-                                style: OneTheme.of(context)
-                                    .title1
-                                    .copyWith(fontSize: 10),
+                                style: OneTheme.of(context).title1.copyWith(fontSize: 10),
                                 textAlign: TextAlign.center,
                               )
                             ],
@@ -211,8 +198,7 @@ class _ScanScreenState extends State<ScanScreen> {
         ListView.builder(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
-          padding:
-              const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
           itemCount: _dataList.length,
           itemBuilder: (context, index) {
             return ItemScanAr(

@@ -14,12 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen(
-      {super.key,
-      required this.arguments,
-      required this.argumentsList,
-      required this.title,
-      required this.fromRoute});
+  const DetailScreen({super.key, required this.arguments, required this.argumentsList, required this.title, required this.fromRoute});
   final title;
   final arguments;
   final argumentsList;
@@ -32,6 +27,16 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   final ScrollController _scrollController = ScrollController();
 
+  dynamic data;
+  String label = '';
+
+  @override
+  void initState() {
+    data = widget.arguments;
+    label = widget.title;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -41,15 +46,11 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                slivers: <Widget>[
-                  _buildHeader(),
-                  SliverToBoxAdapter(child: _buildDescreption()),
-                  SliverToBoxAdapter(child: _buildListRelated()),
-                ]),
+            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
+              _buildHeader(),
+              SliverToBoxAdapter(child: _buildDescreption()),
+              SliverToBoxAdapter(child: _buildListRelated()),
+            ]),
           ),
         ],
       ),
@@ -87,12 +88,9 @@ class _DetailScreenState extends State<DetailScreen> {
               InkWell(
                 onTap: () {
                   if (widget.fromRoute == FromRoute.listItem) {
-                    Get.until((Route<dynamic> route) =>
-                        route.settings.name ==
-                        AppRoute.anatomyDetailScreen.name);
+                    Get.until((Route<dynamic> route) => route.settings.name == AppRoute.anatomyDetailScreen.name);
                   } else {
-                    Get.until((Route<dynamic> route) =>
-                        route.settings.name == AppRoute.homeTab.name);
+                    Get.until((Route<dynamic> route) => route.settings.name == AppRoute.homeTab.name);
                   }
                 },
                 child: const Icon(
@@ -106,16 +104,12 @@ class _DetailScreenState extends State<DetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${widget.arguments['name']}',
-                    style: OneTheme.of(context)
-                        .title2
-                        .copyWith(fontSize: 18, color: OneColors.white),
+                    '${data['name']}',
+                    style: OneTheme.of(context).title2.copyWith(fontSize: 18, color: OneColors.white),
                   ),
                   Text(
-                    widget.title,
-                    style: OneTheme.of(context)
-                        .title2
-                        .copyWith(fontSize: 14, color: OneColors.grey),
+                    label,
+                    style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
                   ),
                 ],
               )
@@ -144,9 +138,7 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Hero(
               tag: 'image',
               child: Center(
-                child: CachedImage(
-                    imageUrl: widget.arguments['imageUrl'],
-                    fit: BoxFit.contain),
+                child: CachedImage(imageUrl: data['imageUrl'], fit: BoxFit.contain),
               ),
             ),
           ),
@@ -171,10 +163,7 @@ class _DetailScreenState extends State<DetailScreen> {
               child: Center(
                 child: Text(
                   'Hiển thị 3D',
-                  style: OneTheme.of(context).title2.copyWith(
-                      color: OneColors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
+                  style: OneTheme.of(context).title2.copyWith(color: OneColors.white, fontSize: 18, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -194,15 +183,13 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               Text(
                 'Giới thiệu',
-                style: OneTheme.of(context)
-                    .title2
-                    .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     // do something
-                    return DetailMoreScreen(arguments: widget.arguments);
+                    return DetailMoreScreen(arguments: data);
                   }));
                 },
                 child: Row(
@@ -227,11 +214,9 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
           const SizedBox(height: 15),
           Text(
-            '${widget.arguments['descreption']}',
+            '${data['descreption']}',
             textAlign: TextAlign.justify,
-            style: OneTheme.of(context)
-                .title2
-                .copyWith(fontSize: 14, color: OneColors.grey),
+            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
           )
         ],
       ),
@@ -246,25 +231,27 @@ class _DetailScreenState extends State<DetailScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Liên quan',
-            style: OneTheme.of(context)
-                .title2
-                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+            style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
         ),
         ListView.builder(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
-          padding:
-              const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
           itemCount: widget.argumentsList.length,
           itemBuilder: (context, index) {
-            return widget.arguments['name'] !=
-                    widget.argumentsList[index]['name']
+            return data['name'] != widget.argumentsList[index]['name']
                 ? ItemListAnotomy(
-                    arguments: widget.arguments,
+                    arguments: data,
                     argumentsList: widget.argumentsList,
                     name: widget.argumentsList[index]['name'],
                     imageUrl: widget.argumentsList[index]['imageUrl'],
+                    onTap: () {
+                      setState(() {
+                        data = widget.argumentsList[index];
+                        label = _title(widget.argumentsList[index]['id']);
+                      });
+                    },
                   )
                 : Container();
           },
@@ -273,8 +260,22 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
+  String _title(String id) {
+    switch (id) {
+      case '1':
+        return 'Đầu';
+      case '2':
+        return 'Thân';
+      case '3':
+        return 'Chi trên';
+      case '4':
+        return 'Chi dưới';
+    }
+    return '';
+  }
+
   String _getImage3D() {
-    switch (widget.arguments['name']) {
+    switch (data['name']) {
       case 'Hộp sọ':
         return 'assets/glb/so_nao.glb';
       case 'Bàn chân':

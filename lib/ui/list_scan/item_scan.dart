@@ -1,21 +1,12 @@
-import 'dart:math';
-
 import 'package:anatomy_ar/cache_image.dart/cache_image.dart';
 import 'package:anatomy_ar/const/ar_color.dart';
 import 'package:anatomy_ar/const/ar_theme.dart';
-import 'package:anatomy_ar/const/ramdom_color.dart';
 import 'package:flutter/material.dart';
 import 'package:native_ar_viewer/native_ar_viewer.dart';
 import 'dart:io' as io;
 
 class ItemScanAr extends StatefulWidget {
-  const ItemScanAr(
-      {super.key,
-      required this.title,
-      required this.descreption,
-      required this.imageUrl,
-      required this.image3d,
-      required this.index});
+  const ItemScanAr({super.key, required this.title, required this.descreption, required this.imageUrl, required this.image3d, required this.index});
   final int index;
   final String title;
   final String descreption;
@@ -31,15 +22,12 @@ class _ItemScanArState extends State<ItemScanAr> {
     if (io.Platform.isAndroid) {
       await NativeArViewer.launchAR(model3DUrl);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Platform not supported')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Platform not supported')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    //  Random random = Random();
-    // var indexRandom = random.nextInt(ColorRamdom.animalColor.length);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
@@ -48,13 +36,10 @@ class _ItemScanArState extends State<ItemScanAr> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: widget.index % 2 == 0
-                ? Color.fromARGB(255, 255, 240, 221)
-                : Color.fromARGB(255, 221, 226, 255),
+            color: widget.index % 2 == 0 ? const Color.fromARGB(255, 255, 240, 221) : const Color.fromARGB(255, 221, 226, 255),
             borderRadius: BorderRadius.circular(5),
           ),
-          padding:
-              const EdgeInsets.only(left: 30, top: 10, bottom: 10, right: 15),
+          padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10, right: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -68,9 +53,7 @@ class _ItemScanArState extends State<ItemScanAr> {
                   const SizedBox(height: 10),
                   Text(
                     widget.descreption,
-                    style: OneTheme.of(context)
-                        .title2
-                        .copyWith(fontSize: 14, color: OneColors.grey),
+                    style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.grey),
                   ),
                 ],
               ),

@@ -34,8 +34,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   String removeDiacritics(String str) {
-    const withDiacritics =
-        'áàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđ';
+    const withDiacritics = 'áàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđ';
     const withoutDiacritics = 'aaaaaaaeeeeeeiiiiiooooooooouuuuuuyyyyyd';
 
     for (int i = 0; i < withDiacritics.length; i++) {
@@ -84,19 +83,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
       body: Stack(
         children: [
           Scrollbar(
-            child: CustomScrollView(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                slivers: <Widget>[
-                  _buildHeader(),
-                  if (!isListFilterEmty) ...[
-                    SliverToBoxAdapter(child: _buildCategory()),
-                    SliverToBoxAdapter(child: _buildExtend()),
-                  ] else ...[
-                    SliverToBoxAdapter(child: _buildListSearch())
-                  ]
-                ]),
+            child: CustomScrollView(controller: _scrollController, physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
+              _buildHeader(),
+              if (!isListFilterEmty) ...[
+                SliverToBoxAdapter(child: _buildCategory()),
+                SliverToBoxAdapter(child: _buildExtend()),
+              ] else ...[
+                SliverToBoxAdapter(child: _buildListSearch())
+              ]
+            ]),
           ),
         ],
       ),
@@ -104,7 +99,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   Widget _buildHeader() {
-    final double headerHeight = 115 + MediaQuery.of(context).padding.top;
+    final double headerHeight = 145 + MediaQuery.of(context).padding.top;
     return SliverPersistentHeader(
       pinned: true,
       delegate: SliverAppBarDelegate(
@@ -192,24 +187,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     cursorColor: OneColors.white,
                     decoration: const InputDecoration(
                       hintText: 'Search',
-                      hintStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: OneColors.textGrey1),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent),
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent),
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      hintStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: OneColors.textGrey1),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.all(Radius.circular(8))),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.all(Radius.circular(8))),
                       contentPadding: EdgeInsets.only(left: 20.0, right: 5.0),
                       fillColor: Colors.transparent,
                       filled: true,
                       counterText: "",
                     ),
-                    style: OneTheme.of(context)
-                        .textFieldText
-                        .copyWith(color: OneColors.textGreyDark),
+                    style: OneTheme.of(context).textFieldText.copyWith(color: OneColors.white),
                     onTap: () {},
                     onEditingComplete: () {},
                     onChanged: (value) {
@@ -255,8 +241,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         ? ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
-            padding:
-                const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
+            padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 26),
             itemCount: dataListFilter.length,
             itemBuilder: (context, index) {
               return ItemSearchHomePage(
@@ -286,16 +271,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
         children: [
           Text(
             'Danh mục',
-            style: OneTheme.of(context)
-                .title2
-                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+            style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 4),
           Text(
             'Chọn phần muốn khám phá',
-            style: OneTheme.of(context)
-                .title2
-                .copyWith(fontSize: 14, color: OneColors.textGrey1),
+            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
           ),
           const SizedBox(height: 20),
           Row(
@@ -303,10 +284,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: [
               _buildItemBody(svgUrl: ArImages.ic_dau, title: 'Đầu', id: 1),
               _buildItemBody(svgUrl: ArImages.ic_than, title: 'Thân', id: 2),
-              _buildItemBody(
-                  svgUrl: ArImages.ic_chi_tren, title: 'Chi trên', id: 3),
-              _buildItemBody(
-                  svgUrl: ArImages.ic_chi_duoi, title: 'Chi dưới', id: 4),
+              _buildItemBody(svgUrl: ArImages.ic_chi_tren, title: 'Chi trên', id: 3),
+              _buildItemBody(svgUrl: ArImages.ic_chi_duoi, title: 'Chi dưới', id: 4),
             ],
           )
         ],
@@ -322,16 +301,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
         children: [
           Text(
             'Mở rộng',
-            style: OneTheme.of(context)
-                .title2
-                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+            style: OneTheme.of(context).title2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 4),
           Text(
             'Những điều thú vị mà bạn nên biết',
-            style: OneTheme.of(context)
-                .title2
-                .copyWith(fontSize: 14, color: OneColors.textGrey1),
+            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
           ),
           const SizedBox(height: 10),
           InkWell(
@@ -342,10 +317,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color.fromARGB(255, 151, 184, 255)
-                      .withOpacity(0.2)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color.fromARGB(255, 151, 184, 255).withOpacity(0.2)),
               child: Row(
                 children: [
                   Expanded(
@@ -355,17 +327,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         Text(
                           'Có thể bạn chưa biết',
-                          style: OneTheme.of(context)
-                              .title2
-                              .copyWith(fontSize: 18),
+                          style: OneTheme.of(context).title2.copyWith(fontSize: 18),
                         ),
                         const SizedBox(height: 4),
                         SizedBox(
                           width: 200,
                           child: Text(
                             'Các thông tin thú vị về cơ thể con người',
-                            style: OneTheme.of(context).title2.copyWith(
-                                fontSize: 14, color: OneColors.textGrey1),
+                            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
                           ),
                         ),
                       ],
@@ -391,10 +360,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color.fromARGB(255, 253, 216, 115)
-                      .withOpacity(0.2)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color.fromARGB(255, 253, 216, 115).withOpacity(0.2)),
               child: Row(
                 children: [
                   Expanded(
@@ -404,17 +370,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         Text(
                           'Cẩm nang sức khỏe',
-                          style: OneTheme.of(context)
-                              .title2
-                              .copyWith(fontSize: 18),
+                          style: OneTheme.of(context).title2.copyWith(fontSize: 18),
                         ),
                         const SizedBox(height: 4),
                         SizedBox(
                           width: 200,
                           child: Text(
                             'Cẩm nang về chăm sóc sức khoẻ',
-                            style: OneTheme.of(context).title2.copyWith(
-                                fontSize: 14, color: OneColors.textGrey1),
+                            style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
                           ),
                         ),
                       ],
@@ -431,47 +394,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
             ),
           ),
-          // const SizedBox(height: 14),
-          // Container(
-          //   padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-          //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: OneColors.grey.withOpacity(0.4)),
-          //   child: Row(
-          //     children: [
-          //       Expanded(
-          //         flex: 4,
-          //         child: Column(
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           children: [
-          //             Text(
-          //               'Từ điển giải phẫu',
-          //               style: OneTheme.of(context).title2.copyWith(fontSize: 18),
-          //             ),
-          //             const SizedBox(height: 4),
-          //             Text(
-          //               'Những thuật ngữ thường gặp trong giải phẫu',
-          //               style: OneTheme.of(context).title2.copyWith(fontSize: 14, color: OneColors.textGrey1),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //       const SizedBox(height: 10),
-          //       SizedBox(
-          //         height: 80,
-          //         child: Image.asset(
-          //           ArImages.co_the_ban_chua_biet,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           const SizedBox(height: 20),
         ],
       ),
     );
   }
 
-  Widget _buildItemBody(
-      {required String svgUrl, required String title, required int id}) {
+  Widget _buildItemBody({required String svgUrl, required String title, required int id}) {
     return InkWell(
       onTap: () {
         Get.toNamed(AppRoute.anatomyDetailScreen.name, arguments: [id]);
