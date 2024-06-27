@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="anatomy_ar"
+        android:label="Giả phẫu 3D"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
